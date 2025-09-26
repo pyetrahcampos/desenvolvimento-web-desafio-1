@@ -14,7 +14,7 @@ let form = document.getElementById("myForm"),
 let getData = localStorage.getItem('estacionamento') ? JSON.parse(localStorage.getItem('estacionamento')) : [];
 let isEdit = false, editId;
 
-// Ao clicar em "Novo Registro"
+
 newUserBtn.addEventListener('click', () => {
     submitBtn.innerText = "Enviar";
     modalTitle.innerText = "Preencha o formulário";
@@ -22,7 +22,7 @@ newUserBtn.addEventListener('click', () => {
     form.reset();
 });
 
-// Exibir dados
+
 function showInfo() {
     userInfo.innerHTML = "";
     getData.forEach((element, index) => {
@@ -44,7 +44,6 @@ function showInfo() {
     });
 }
 
-// Submeter formulário
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -57,7 +56,7 @@ form.addEventListener('submit', (e) => {
         cor: cor.value
     };
 
-    // Verifica se a vaga já está ocupada (exceto se estiver editando o mesmo registro)
+  
     const vagaOcupada = getData.some((item, index) => {
         return item.vaga === information.vaga && (!isEdit || index !== editId);
     });
@@ -84,7 +83,7 @@ form.addEventListener('submit', (e) => {
 });
 
 
-// Editar
+
 function editInfo(index) {
     isEdit = true;
     editId = index;
@@ -103,7 +102,7 @@ function editInfo(index) {
     modal.style.display = "block";
 }
 
-// Excluir
+
 function deleteInfo(index) {
     if (confirm("Tem certeza que deseja excluir este registro?")) {
         getData.splice(index, 1);
@@ -114,4 +113,5 @@ function deleteInfo(index) {
 
 // Inicializa a tabela
 showInfo();
+
 
