@@ -8,8 +8,9 @@ let form = document.getElementById("myForm"),
     submitBtn = document.querySelector(".submit"),
     userInfo = document.getElementById("data"),
     modal = document.getElementById("userForm"),
-    modalTitle = document.querySelector("#userForm .modal-title"),
-    newUserBtn = document.querySelector(".newUser");
+    modalTitle = document.querySelector(".modal-title"),
+    newUserBtn = document.querySelector(".newUser"),
+    closeModalBtn = document.querySelector(".closeModal");
 
 let getData = localStorage.getItem('estacionamento') ? JSON.parse(localStorage.getItem('estacionamento')) : [];
 let isEdit = false, editId;
@@ -20,6 +21,12 @@ newUserBtn.addEventListener('click', () => {
     modalTitle.innerText = "Preencha o formulário";
     isEdit = false;
     form.reset();
+    modal.style.display = "flex";
+});
+
+
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = "none";
 });
 
 
@@ -36,13 +43,14 @@ function showInfo() {
             <td>${element.vaga}</td>
             <td>${element.cor}</td>
             <td>
-                <button onclick="editInfo(${index})" class="btn btn-warning btn-sm">Editar</button>
-                <button onclick="deleteInfo(${index})" class="btn btn-danger btn-sm">Excluir</button>
+                <button onclick="editInfo(${index})" class="btn btn-warning">Editar</button>
+                <button onclick="deleteInfo(${index})" class="btn btn-danger">Excluir</button>
             </td>
         </tr>`;
         userInfo.innerHTML += createElement;
     });
 }
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -56,7 +64,6 @@ form.addEventListener('submit', (e) => {
         cor: cor.value
     };
 
-  
     const vagaOcupada = getData.some((item, index) => {
         return item.vaga === information.vaga && (!isEdit || index !== editId);
     });
@@ -77,11 +84,7 @@ form.addEventListener('submit', (e) => {
     showInfo();
     form.reset();
     modal.style.display = "none";
-
-    let backdrop = document.querySelector(".modal-backdrop");
-    if (backdrop) backdrop.remove();
 });
-
 
 
 function editInfo(index) {
@@ -99,7 +102,7 @@ function editInfo(index) {
 
     submitBtn.innerText = "Atualizar";
     modalTitle.innerText = "Editar Registro";
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 
@@ -116,3 +119,5 @@ showInfo();
 
 
 
+
+       
