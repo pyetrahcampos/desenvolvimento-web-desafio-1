@@ -111,7 +111,8 @@ function deleteInfo(index) {
     }
 }
 
-// Inicializa a tabela
+
 showInfo();
+
 
 
